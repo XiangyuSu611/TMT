@@ -26,4 +26,6 @@ cite infomation.
 
 ## License
 
+Our code is released under MIT License. See LICENSE file for details.
+
 ## Ackonwledgements
