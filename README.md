@@ -14,7 +14,11 @@ For more details and materials, please refer to our project page.
 
 ## Dependencies
 
-## Usage
+## Installation and Usages
+* [Running environment docker](url)
+* [Data-preprocessing](url)
+* [Image Translation](url)
+* [Material Prediction](url)
 
 
 ## Citation
