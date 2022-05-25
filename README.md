@@ -4,7 +4,7 @@ This is the author's code release for:
 
 > **Photo-to-shape Material Transfer for Diverse Structures**  
 > Ruizhen Hu, Xiangyu Su, Xiangkai Chen, Oliver Van Kaick, Hui Huang.  
-> **SIGGRAPH 2022 [Conditional accept]**
+> **ACM Trans. on Graphics (Proc. SIGGRAPH). 41(4), 2022.**
 
 ##  Introduction
 
@@ -15,6 +15,7 @@ For more details and materials, please refer to our project page.
 ## Dependencies
 
 ## Usage
+
 
 ## Citation
 
