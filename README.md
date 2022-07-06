@@ -21,7 +21,7 @@ For more details and materials, please refer to our [project page](https://vcc.t
 ## Getting started
 For all users, please read **Dependency** for initial environment setting. Then, for users who want to just use our pre-trained model, please read **Material translation**. And for users who want to re-train models with their own data, please read **Data pre-process** for more help. 
 
-Enjoy it!😎
+😎Enjoy it!
 
 * [Dependency](url)
 * [Data pre-process](url)
