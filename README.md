@@ -20,7 +20,7 @@ First, please read **Dependency** for initial environment setting. Then, for use
 😎Enjoy it!
 
 * [Dependency](https://github.com/XiangyuSu611/TMT/blob/master/docs/Dependency.md)
-* [Data generation](https://github.com/XiangyuSu611/TMT/blob/master/src/datapreprocess/readme.md)
+* [Data generation](https://github.com/XiangyuSu611/TMT/blob/master/src/data_generation/readme.md)
 * [Material translation](url)
 
 ## Citation
