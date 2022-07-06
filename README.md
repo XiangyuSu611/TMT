@@ -19,7 +19,7 @@ For all users, please read **Dependency** for initial environment setting. Then,
 
 😎Enjoy it!
 
-* [Dependency](url)
+* [Dependency](https://github.com/XiangyuSu611/TMT/blob/master/docs/Dependency.md)
 * [Data pre-process](url)
 * [Material translation](url)
 
