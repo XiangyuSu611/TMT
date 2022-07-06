@@ -1,7 +1,6 @@
 # TMT: Translation-based Material Transfer
 ![image](https://github.com/XiangyuSu611/TMT/blob/master/docs/teaser.png)
-This is the author's code release for:
-
+**This is the author's code release for:**
 > **Photo-to-shape Material Transfer for Diverse Structures**  
 > Ruizhen Hu, Xiangyu Su, Xiangkai Chen, Oliver Van Kaick, Hui Huang.  
 > **ACM Trans. on Graphics (Proc. SIGGRAPH). 41(4), 2022.**
@@ -14,13 +13,13 @@ exemplar to guide the assignment of materials to the parts of the shape, so
 that the appearance of the resulting shape is as similar as possible to the
 exemplar. 
 
-For more details and materials, please refer to our [[project page](https://vcc.tech/research/2022/TMT)].
+For more details and materials, please refer to our [project page](https://vcc.tech/research/2022/TMT).
 
 
 ![image](https://github.com/XiangyuSu611/TMT/blob/master/docs/overview.png)
 
 ## Getting started
-For all users, please read **dependency** for initial environment setting. Then, for users who want to just use our pre-trained model, please read **material translation**. And for users who want to re-train models with their own data, please read **data pre-process** for more help. 
+For all users, please read **Dependency** for initial environment setting. Then, for users who want to just use our pre-trained model, please read **Material translation**. And for users who want to re-train models with their own data, please read **Data pre-process** for more help. 
 
 Enjoy it!😎
 
