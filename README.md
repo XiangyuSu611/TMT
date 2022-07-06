@@ -13,6 +13,7 @@ For more details and materials, please refer to our [project page](https://vcc.t
 
 
 ![image](https://github.com/XiangyuSu611/TMT/blob/master/docs/overview.png)
+<center>overview</center>
 
 ## Getting started
 For all users, please read **Dependency** for initial environment setting. Then, for users who want to just use our pre-trained model, please read **Material translation**. And for users who want to re-train models with their own data, please read **Data pre-process** for more help. 
