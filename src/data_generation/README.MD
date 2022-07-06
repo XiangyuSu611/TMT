@@ -13,8 +13,11 @@ We have collected 600 photorealistic materials from differernt sources, some of 
 
 ## Generate training data
 We imporved PhotoShape's data generation pipeline to generate our training data.
-1️⃣ We align exemplar photos and shapes to get numbers of image-shape pairs, which is related to `./generation/pairs/`.
-2️⃣ Based on image-shape pairs, we use Photoshape's alignment methods to get an initial substance for corresponding 3D shape's parts, and group different semantic parts to obtain more realistic results. This is related to `./generation/substances/`.
-3️⃣ After that, we randomly sample a material of the corresponding category for each part, generate blender files and render blender files from different views to get (rendering, segmentation) pairs, which will be used to train our network.
 
+1️⃣ We align exemplar photos and shapes to get numbers of image-shape pairs, which is related to `./generation/pairs/`.
+
+2️⃣ Based on image-shape pairs, we use Photoshape's alignment methods to get an initial substance for corresponding 3D shape's parts, and group different semantic parts to obtain more realistic results. This is related to `./generation/substances/`.
+
+3️⃣ After that, we randomly sample a material of the corresponding category for each part, generate blender files and render blender files from different views to get (rendering, segmentation) pairs, which will be used to train our network.
+This is related to `./generation/renderings/`.
 
