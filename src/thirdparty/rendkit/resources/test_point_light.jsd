@@ -1,0 +1,33 @@
+{
+  "mesh": {
+    "type": "wavefront",
+    "path": "/projects/grail/kparnb/gravel/resources/uploads/33/model.obj",
+    "size": 100,
+    "uv_scale": 8.0
+  },
+  "materials": {
+    "_8R15_Twist_Shale.001": {
+      "type": "blinn_phong",
+      "diffuse": [0, 0, 1],
+      "specular": [1, 1, 1],
+      "roughness": 0.1
+    },
+    "_91_White.001": {
+      "type": "blinn_phong",
+      "diffuse": [1, 0, 0],
+      "specular": [1, 1, 1],
+      "roughness": 0.1
+    }
+  },
+  "lights": [
+  {
+    "type": "point",
+    "intensity": 3000,
+    "position": [0, 70, 70]
+  }
+  ],
+  "radiance_map": {
+    "path": "/projects/grail/kpar/data/envmaps2/studio027.cross.exr",
+    "scale": 0.0
+  }
+}

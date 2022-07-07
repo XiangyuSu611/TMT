@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block header %}
+    <link rel="stylesheet" type="text/css"
+          href="{{ url_for('svbrdf.static', filename='css/svbrdf_list.css') }}" />
+{% endblock %}
+
+
+{% block contents %}
+    <div id="svbrdf-list" class="list-table-container">
+    <table id="svbrdf-table" class="list-table table table-striped">
+    <tbody>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Substance Name</th>
+        <th></th>
+    </tr>
+    {% for svbrdf in svbrdfs %}
+        <tr>
+            <td>{{ svbrdf.id }}</td>
+            <td>{{ svbrdf.name }}</td>
+            <td>{{ svbrdf.substance_name }}</td>
+            <td><a href="{{ url_for('svbrdf.list_svbrdf_renderings',
+                                    svbrdf_id=svbrdf.id) }}">
+                Renderings</a></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+    </div>
+{% endblock %}
