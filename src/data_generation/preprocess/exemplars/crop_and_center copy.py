@@ -2,6 +2,8 @@
 Crop and center initial photographs.
 """
 
+import sys
+sys.path.append('/home/code/TMT/src/')
 import config
 import numpy as np
 
@@ -9,7 +11,7 @@ from pathlib import Path
 from skimage.io import imread, imsave
 from skimage.color import rgb2gray, gray2rgb
 from skimage.transform import resize
-from thirdparty.toolbox.masks import mask_to_bbox, crop_bbox
+from thirdparty.toolbox.toolbox.masks import mask_to_bbox, crop_bbox
 
 
 def bright_pixel_mask(image, percentile=80):
@@ -51,12 +53,13 @@ def make_square_image(image, max_size):
 def main(directory):
     directory = Path(directory).resolve()
     for path in sorted(directory.iterdir()):
-        image = imread(str(path))
+        image = imread(str(Path(path, 'original.jpg')))
         if len(image.shape) == 2:
             image = gray2rgb(img)
         cropped_image = make_square_image(image, max_size=1000)
-        imsave(path.replace('original', 'cropped'), cropped_image)
+        imsave(str(Path(path, 'cropped.jpg')), cropped_image)
 
 
 if __name__ == '__main__':
-    main()
+    directory = Path(config.DATA_ROOT, 'exemplars')
+    main(directory)
