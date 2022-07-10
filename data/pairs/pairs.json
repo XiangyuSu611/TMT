@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "exemplar": "/home/code/TMT/data/exemplars/1",
+    "shape": "/home/code/TMT/data/shapes/1",
+    "azimuth": 0.7392578125,
+    "elevation": 1.3310546875,
+    "fov": 50.0,
+    "distance": 19.516849517822266,
+    "feature_type": "align_hog_8.npz"
+  },
+  {
+    "id": 2,
+    "exemplar": "/home/code/TMT/data/exemplars/2",
+    "shape": "/home/code/TMT/data/shapes/1",
+    "azimuth": 6.01953125,
+    "elevation": 0.78515625,
+    "fov": 50.0,
+    "distance": 22.672019958496094,
+    "feature_type": "align_hog_8.npz"
+  }
+]

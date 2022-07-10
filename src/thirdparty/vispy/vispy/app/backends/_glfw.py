@@ -31,7 +31,6 @@ from ... import config
 
 USE_EGL = config['gl_backend'].lower().startswith('es')
 
-
 # -------------------------------------------------------------------- init ---
 
 try:
@@ -273,7 +272,6 @@ class CanvasBackend(BaseCanvasBackend):
                                          share=share)
         if not self._id:
             raise RuntimeError('Could not create window')
-
         _VP_GLFW_ALL_WINDOWS.append(self)
         self._mod = list()
 
@@ -288,6 +286,7 @@ class CanvasBackend(BaseCanvasBackend):
         glfw.glfwSetWindowCloseCallback(self._id, self._on_close)
         self._vispy_canvas_ = None
         self._needs_draw = False
+        print('!!!!!!!!!!!!!!!!!!')
         self._vispy_canvas.set_current()
         if p.position is not None:
             self._vispy_set_position(*p.position)
@@ -300,6 +299,7 @@ class CanvasBackend(BaseCanvasBackend):
         self._next_key_text = {}
         self._vispy_canvas.set_current()
         self._vispy_canvas.events.initialize()
+
 
     def _vispy_warmup(self):
         etime = time() + 0.25

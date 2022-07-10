@@ -132,7 +132,7 @@ def import_radiance_map(jsd_radmap) -> Union[EnvironmentMap, None]:
         cube_faces = np.clip(cube_faces, 0, jsd_radmap['max'])
     logger.info('Radiance range: ({}, {})'
                 .format(cube_faces.min(), cube_faces.max()))
-    print('ready to return environmentmap')
+
     return EnvironmentMap(cube_faces, scale)
 
 

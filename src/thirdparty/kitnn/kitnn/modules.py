@@ -2,7 +2,8 @@ from collections import OrderedDict
 
 from torch import nn
 from torch.autograd import Variable
-from torch.legacy.nn import SpatialCrossMapLRN
+from torch.nn.modules import CrossMapLRN2d as SpatialCrossMapLRN
+# from torch.legacy.nn import SpatialCrossMapLRN
 
 
 class SelectiveSequential(nn.Module):

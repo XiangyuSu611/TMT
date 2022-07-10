@@ -298,7 +298,7 @@ class MincVGG(nn.Module, SerializationMixin):
 
     def load_npy(self, path):
         with open(path, 'rb') as f:
-            data = np.load(f)[()]
+            data = np.load(f,allow_pickle=True)[()]
         load_module_npy(self.features, data)
         load_module_npy(self.classifier, data)
 
