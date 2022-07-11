@@ -43,5 +43,3 @@ Based on generated mateiral json, we provide a python scripts to assgin mateiral
 ``````
 
 Once you get this blender file, you can view this 3D shape with high-quality materials and render it from any point of view🤟. 
-
-## 
