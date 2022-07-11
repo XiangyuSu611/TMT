@@ -22,7 +22,7 @@ SHAPE_REND_PHONG_NAME = f'shape_rend_phong_{SHAPE_REND_SHAPE_STR}.png'
 SHAPE_REND_SHAPE_STR = f'{SHAPE_REND_SHAPE[0]}x{SHAPE_REND_SHAPE[1]}'
 SHAPE_REND_SEGMENT_MAP_NAME = f'shape_rend_segments_{SHAPE_REND_SHAPE_STR}.map.png'
 SHAPE_REND_SEGMENT_VIS_NAME = f'shape_rend_segments_{SHAPE_REND_SHAPE_STR}.vis.png'
-
+CAMEA_POSE_PIROR_PATH = Path('/home/code/TMT/src/data_generation/generation/camera_pose_piror.json')
 
 """
 Alignment parameters.

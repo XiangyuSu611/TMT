@@ -15,13 +15,15 @@ For more details and materials, please refer to our [project page](https://vcc.t
 ![image](https://github.com/XiangyuSu611/TMT/blob/master/docs/overview.png)
 
 ## Getting started
-First, please read **Dependency** for initial environment setting. Then, for users who want to just use our pre-trained model, please read **Material translation**. And for users who want to re-train models with their own data, please read **Data generation** for more help. 
+First, please read **Dependency** for initial environment setting. Then, for users who want to just use our pre-trained model, please read **Material transfer**. And for users who want to re-train models with their own data, please read **Data generation, image translation, and mateiral prediction** for more help. 
 
 😎Enjoy it!
 
 * [Dependency](https://github.com/XiangyuSu611/TMT/blob/master/docs/Dependency.md)
 * [Data generation](https://github.com/XiangyuSu611/TMT/blob/master/src/data_generation/readme.md)
-* [Material translation](url)
+* [Image translaion](https://github.com/XiangyuSu611/TMT/blob/master/src/image_translation/readme.md)
+* [Material prediction](https://github.com/XiangyuSu611/TMT/blob/master/src/mateiral_prediction/readme.md)
+* [Material transfer](https://github.com/XiangyuSu611/TMT/blob/master/src/material_transfer/readme.md)
 
 ## Citation
 

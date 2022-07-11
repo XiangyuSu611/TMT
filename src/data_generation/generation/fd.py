@@ -1,2 +1,0 @@
-print('da')
-print('dada')
