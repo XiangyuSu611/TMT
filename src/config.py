@@ -15,6 +15,15 @@ EXEMPLAR_SUBST_MAP_NAME = 'substance_map_minc_vgg16.map.v2.png'
 EXEMPLAR_SUBST_VIS_NAME = 'substance_map_minc_vgg16.vis.v2.png'
 EXEMPLAR_ALIGN_DATA_NAME = 'align_hog_8.npz'
 SHAPE_ALIGN_DATA_NAME = 'align_hog_8.npz'
+SHAPE_REND_SHAPE = (500, 500)
+PAIR_FG_BBOX_NAME = f'shape_fg_bbox_{SHAPE_REND_SHAPE_STR}.png'
+PAIR_RAW_SEGMENT_MAP_NAME = f'shape_segment_map_raw_{SHAPE_REND_SHAPE_STR}.png'
+SHAPE_REND_PHONG_NAME = f'shape_rend_phong_{SHAPE_REND_SHAPE_STR}.png'
+SHAPE_REND_SHAPE_STR = f'{SHAPE_REND_SHAPE[0]}x{SHAPE_REND_SHAPE[1]}'
+SHAPE_REND_SEGMENT_MAP_NAME = f'shape_rend_segments_{SHAPE_REND_SHAPE_STR}.map.png'
+SHAPE_REND_SEGMENT_VIS_NAME = f'shape_rend_segments_{SHAPE_REND_SHAPE_STR}.vis.png'
+
+
 """
 Alignment parameters.
 """

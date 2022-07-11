@@ -286,7 +286,6 @@ class CanvasBackend(BaseCanvasBackend):
         glfw.glfwSetWindowCloseCallback(self._id, self._on_close)
         self._vispy_canvas_ = None
         self._needs_draw = False
-        print('!!!!!!!!!!!!!!!!!!')
         self._vispy_canvas.set_current()
         if p.position is not None:
             self._vispy_set_position(*p.position)
