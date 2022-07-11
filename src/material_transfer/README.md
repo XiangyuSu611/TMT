@@ -6,16 +6,16 @@ Use pre-trained image translation and material prediction network, we can get fi
 
 Our pipeline starts with a random wild photo and a 3D shape with semantic segmentation.
 
-For wild photo, we should remove background and estimate camera pose. There are many ways to remove the background, if you don't want to configure addtional environment, we recommend [remove.bg](https://www.remove.bg/), this method is already used by Photoshop. And we recommend to move object to the center of image for better results.
+For wild photo, we should remove background and estimate camera pose. There are many ways to remove the background, if you don't want to configure addtional environment, we recommend [remove.bg](https://www.remove.bg/). And we recommend to move object to the center of image for better results.
 
 ````shell
-
+python ./material_transfer/pre_process/crop_and_center.py
 ````
 
-To estimate the camera pose, we use pre-trained [camera pose estimator](https://github.com/laughtervv/DISN),  please download this [model](), place in `./models`, and run this script.
+To estimate the camera pose, we use pre-trained [camera pose estimator](https://github.com/laughtervv/DISN),  please download this [model](), place in `./cam_estimation/checkpoint/`, and run this script.
 
 ````shell
-
+python ./material_transfer/cam_estimation/est_cam_syn.py --cam_est --cam_log_dir /home/code/TMT/src/material_transfer/cam_estimation/checkpoint/
 ````
 
 Next, we projection 3D shape from estimated camera pose to get semantic projection, and generate test pairs.
