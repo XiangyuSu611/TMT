@@ -6,7 +6,17 @@ Directory configuration.
 LOCAL_ROOT = Path('/home/code/TMT')
 DATA_ROOT = Path(LOCAL_ROOT, 'data')
 THIRD_ROOT = Path(LOCAL_ROOT, 'src', 'thirdparty')
+MATERIAL_ROOT = Path(DATA_ROOT, 'materials')
+MATERIAL_DIR_POLIIGON = MATERIAL_ROOT / 'polligon_0328'
+MATERIAL_DIR_AITTALA = MATERIAL_ROOT / 'aittala-beckmann'
+MATERIAL_DIR_VRAY = MATERIAL_ROOT / 'vray-materials-de'
+MATERIAL_DIR_ADOBE_STOCK = MATERIAL_ROOT / 'adobe' / 'our'
+MATERIAL_DIR_CCOTEXTURE = MATERIAL_ROOT / 'cc0texture'
+MATERIAL_DIR_TEXTURE3D = MATERIAL_ROOT / '3Dtexture'
+MATERIAL_DIR_TEXTUREHARVEN = MATERIAL_ROOT / 'texture_harven'
+MATERIAL_DIR_SHARETEXTURE = MATERIAL_ROOT / 'shareTexture'
 
+SHAPE_ROOT = Path(DATA_ROOT, 'shapes')
 MINC_VGG16_WEIGHTS_PATH = Path('/home/code/TMT_release/weights/minc_vgg16.npy')
 RADMAP_PATH = Path(DATA_ROOT, 'envmaps2/rnl.cross.exr')
 PAIRS_JSON_PATH = Path(DATA_ROOT, 'pairs/pairs.json')

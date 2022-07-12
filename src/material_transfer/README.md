@@ -21,7 +21,7 @@ python ./material_transfer/cam_estimation/est_cam_syn.py --cam_est --cam_log_dir
 Next, we projection 3D shape from estimated camera pose to get semantic projection, and generate test pairs.
 
 ``````shell
-
+python ./material_transfer/pre_process/generate_test_pair.py
 ``````
 
 ## Run network
@@ -31,7 +31,7 @@ Please download our pre-trained models, and place them in `./models`.
 After run this script, we can get translated image, translated mask and material prediction results, which would be written to a json. 
 
 ``````shell
-
+python ./mateiral_transfer/transfer.py --name=rendered --dataset_mode=rendered --dataroot=./src/material_transfer/exemplar --gpu_ids=0 --batchSize=6 --use_attention --maskmix --noise_for_mask --warp_mask_losstype=direct --PONO --PONO_C --checkpoints_dir=./src/image_translation/checkpoint/preTrain --which_epoch=50 --save_per_img --nThreads=0 --no_pairing_check
 ``````
 
 ## Post-process output
@@ -39,7 +39,7 @@ After run this script, we can get translated image, translated mask and material
 Based on generated mateiral json, we provide a python scripts to assgin mateirals by Blender. This script can generate blender files automaticly, and of course you can assign materials by other 3D processing softwares.
 
 ``````shell
-
+python ./material_transfer/assignment.py
 ``````
 
 Once you get this blender file, you can view this 3D shape with high-quality materials and render it from any point of view🤟. 

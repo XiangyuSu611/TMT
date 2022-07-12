@@ -1,6 +1,5 @@
 """
 generate test pair, use selected image and shape.
-DISPLAY=:0 vglrun python ./wildPhoto/step1_generateTestPair.py
 """
 import cv2
 import json
@@ -69,7 +68,7 @@ def main():
     realImages = os.listdir(realImageRoot)
     selReals = [img for img in realImages if 'jpg' in img]
     
-    saveRoot = f'./wildPhoto/chair/test{test_id}/realTest{test_id}/'   
+    saveRoot = f'./material_transfer/exemplar/realTest{test_id}/'   
     if not os.path.exists(saveRoot): os.makedirs(saveRoot)
     
     refTxt = []
@@ -91,8 +90,8 @@ def main():
             realImage = skimage.io.imread(realImageRoot + selReal)
 
             foreGround = bright_pixel_mask(realImage, percentile=85).astype(np.uint8)
-            # superPix = slic(realImage, n_segments=5, mask=foreGround)
-            # cv2.imwrite(saveRoot + saveOth + '.png', superPix)
+            superPix = slic(realImage, n_segments=5, mask=foreGround)
+            cv2.imwrite(saveRoot + saveOth + '.png', superPix)
 
             refTxt.append(savePre + '.jpg,' + saveOth + '.jpg,' + saveOth + '.jpg,'+ \
                                             saveOth + '.jpg,' + saveOth + '.jpg,' + saveOth + '.jpg,' + \

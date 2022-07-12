@@ -1,0 +1,50 @@
+{
+  "base_info": {
+    "exemplar": "render_train_00000001.jpg",
+    "shape": 1,
+    "camera": [
+      2.083982467651367,
+      -0.04215754196047783,
+      0.6265318989753723
+    ]
+  },
+  "path1_result": {
+    "material_5": 395,
+    "material_11": 481,
+    "material_14": 395,
+    "material_17": 590,
+    "material_19": 590,
+    "material_36": 590,
+    "material_37": 590,
+    "material_41": 512
+  },
+  "path2_result": {
+    "material_5": 141,
+    "material_11": 355,
+    "material_14": 141,
+    "material_17": 538,
+    "material_19": 407,
+    "material_36": 538,
+    "material_37": 355
+  },
+  "final_result": {
+    "material_5": 141,
+    "material_11": 141,
+    "material_14": 141,
+    "material_17": 141,
+    "material_19": 141,
+    "material_36": 141,
+    "material_37": 141,
+    "material_41": 141
+  },
+  "final_result_sup": {
+    "material_5": 141,
+    "material_11": 112,
+    "material_14": 62,
+    "material_17": 481,
+    "material_19": 141,
+    "material_36": 538,
+    "material_37": 355,
+    "material_41": 512
+  }
+}
