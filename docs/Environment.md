@@ -28,5 +28,6 @@ pip install -r requirements.txt
 Blender is used as an shape processing and rendering tool. We install Blender as a Python module. Here are some [guidelines](https://gist.github.com/keunhong/279c98de28877a3a33a1eb95fa7d56a5).
 ### Non-python dependencies
 + Blender 2.79 or higher
-+ NVIDIA GPU
-We appreciate the initial environment provided by [Photoshape](https://github.com/keunhong/photoshape). If you encounter problems during the environment configuration, you can try to find help here or create an issue in this page💪.
++ NVIDIA GPU for deep learning and OpenGL rendering
+### More help
+💪We appreciate the initial environment provided by [Photoshape](https://github.com/keunhong/photoshape). If you encounter problems during the environment configuration, you can try to find help here or create an issue in this page.
