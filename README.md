@@ -20,10 +20,10 @@ First, please read **Environment** for initial environment setting. Then, for us
 😎Enjoy it!
 
 * [Environment](https://github.com/XiangyuSu611/TMT/blob/master/docs/Environment.md)
-* [Data generation](//https://github.com/XiangyuSu611/TMT/tree/master/src/data_generation)
-* [Image translaion](https://github.com/XiangyuSu611/TMT/blob/master/src/image_translation/readme.md)
-* [Material prediction](https://github.com/XiangyuSu611/TMT/blob/master/src/mateiral_prediction/readme.md)
-* [Material transfer](https://github.com/XiangyuSu611/TMT/blob/master/src/material_transfer/readme.md)
+* [Data generation](https://github.com/XiangyuSu611/TMT/tree/master/src/data_generation)
+* [Image translaion](https://github.com/XiangyuSu611/TMT/blob/master/src/image_translation)
+* [Material prediction](https://github.com/XiangyuSu611/TMT/blob/master/src/mateiral_prediction)
+* [Material transfer](https://github.com/XiangyuSu611/TMT/blob/master/src/material_transfer)
 
 ## Citation
 
