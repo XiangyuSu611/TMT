@@ -5,7 +5,7 @@ We use collections of **photographs**, **shapes** and **materials** for training
 ### Photographs
 We use photographs collected by [PhotoShape](https://github.com/keunhong/photoshape#exemplar-images), which have been cropped and centered. These codes can be found in `./preprocess/exemplars/`. It should be noticed that we use [MINC](http://opensurfaces.cs.cornell.edu/publications/minc/) to get pixel-wised substance prediction, pre-trained model can be downloaded from [here]().
 
-If you want to use our pre-processed photos for chairs, please download from [here](url-to-exemplar), and decompress it to `../data/exemplars/`.
+If you want to use our pre-processed photos for chairs, please download from [here](https://drive.google.com/file/d/1CHpavpGIZ8Uu3fF0gqyw7eC3WTU1Qwlp/view?usp=sharing), and decompress it to `../data/exemplars/`.
 
 Structure of exemplar files should look like this:
 ```Python
