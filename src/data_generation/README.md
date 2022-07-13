@@ -70,7 +70,8 @@ pairs/1
 │   ├── pair_proxy_substances.map.png  # proxy substance segmentation of shape.
 │   ├── pair_proxy_substances.vis.png  # visualization of substance segmentation.
 │   ├── pair_shape_substances.map.png  # final substance segmentation of shape.
-│   └── pair_shape_substances.vis.png  # visualization of final substance segmentation.
+│   ├── pair_shape_substances.vis.png  # visualization of final substance segmentation.
+│   └── shape_segments_overlay.v2.png  # visualization of alignment.
 └── numpy
     └── exemplar_rend_flow_silhouette_500x500.npz  # numpy file computed by SIFT-Flow.
 ```
