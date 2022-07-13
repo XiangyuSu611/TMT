@@ -79,5 +79,5 @@ pairs/1
 2️⃣ Based on image-shape pairs, we use Photoshape's alignment methods to get an initial substance for corresponding 3D shape's parts, which is related to `./preprocess/pairs/`. Then, we group different semantic parts to obtain more realistic results.
 
 3️⃣ After that, we randomly sample a material of the corresponding category for each part, generate blender files and render blender files from different views to get (rendering, segmentation) image pairs, which will be used to train our network.
-This is related to `./generation/renderings/`.
+This is related to `./generation`.
 
