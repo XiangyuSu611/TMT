@@ -1,6 +1,6 @@
 # Image translation
 The image translation network translates the color from the exemplar to a projection of the 3D shape and the part segmentation from the projection to the exemplar.
-![image](https://github.com/XiangyuSu611/TMT/blob/master/docs/image_translation_network.png)
+![image](https://github.com/XiangyuSu611/TMT/blob/master/docs/image_translation_network1.png)
 
 ## Get started
 Pretrained VGG models download from [here](url), move them to `./models`. If you want to use our data, please download from [here](url), and place in `../data/training_data/image_translation`.
