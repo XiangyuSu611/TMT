@@ -10,7 +10,6 @@ import visdom
 from pydensecrf import densecrf
 import numpy as np
 
-import click as click
 from skimage import transform
 from skimage.color import rgb2gray
 from skimage.io import imread

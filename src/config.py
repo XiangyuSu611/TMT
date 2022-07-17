@@ -17,9 +17,11 @@ MATERIAL_DIR_TEXTUREHARVEN = MATERIAL_ROOT / 'texture_harven'
 MATERIAL_DIR_SHARETEXTURE = MATERIAL_ROOT / 'shareTexture'
 
 SHAPE_ROOT = Path(DATA_ROOT, 'shapes')
+PAIR_ROOT = Path(DATA_ROOT, 'pairs')
 MINC_VGG16_WEIGHTS_PATH = Path('/home/code/TMT_release/weights/minc_vgg16.npy')
 RADMAP_PATH = Path(DATA_ROOT, 'envmaps2/rnl.cross.exr')
 PAIRS_JSON_PATH = Path(DATA_ROOT, 'pairs/pairs.json')
+ALIGN_POSE_PATH = Path(LOCAL_ROOT, 'src', 'data_generation', 'preprocess', 'shapes', 'align_pose.npy')
 
 EXEMPLAR_SUBST_MAP_NAME = 'substance_map_minc_vgg16.map.v2.png'
 EXEMPLAR_SUBST_VIS_NAME = 'substance_map_minc_vgg16.vis.v2.png'
@@ -29,11 +31,14 @@ SHAPE_REND_SHAPE = (500, 500)
 SHAPE_REND_SHAPE_STR = f'{SHAPE_REND_SHAPE[0]}x{SHAPE_REND_SHAPE[1]}'
 PAIR_FG_BBOX_NAME = f'shape_fg_bbox_{SHAPE_REND_SHAPE_STR}.png'
 PAIR_RAW_SEGMENT_MAP_NAME = f'shape_segment_map_raw_{SHAPE_REND_SHAPE_STR}.png'
-SHAPE_REND_PHONG_NAME = f'shape_rend_phong_{SHAPE_REND_SHAPE_STR}.png'
-SHAPE_REND_SEGMENT_MAP_NAME = f'shape_rend_segments_{SHAPE_REND_SHAPE_STR}.map.png'
+SHAPE_REND_PHONG_NAME = f'shape_rend_phong_{SHAPE_REND_SHAPE_STR}0001.png'
+SHAPE_REND_SEGMENT_MAP_NAME = f'shape_rend_segments_{SHAPE_REND_SHAPE_STR}.map0001.png'
 SHAPE_REND_SEGMENT_VIS_NAME = f'shape_rend_segments_{SHAPE_REND_SHAPE_STR}.vis.png'
 CAMEA_POSE_PIROR_PATH = Path('/home/code/TMT/src/data_generation/generation/camera_pose_piror.json')
-
+FLOW_DATA_NAME = f'exemplar_rend_flow_silhouette_{SHAPE_REND_SHAPE_STR}.npz'
+FLOW_VIS_DATA_NAME = f'exemplar_rend_flow_silhouette_{SHAPE_REND_SHAPE_STR}.png'
+FLOW_EXEMPLAR_SILHOUETTE_VIS = f'flow_exemplar_silhouette_{SHAPE_REND_SHAPE_STR}.vis.png'
+FLOW_SHAPE_SILHOUETTE_VIS = f'flow_shape_silhouette_{SHAPE_REND_SHAPE_STR}.vis.png'
 """
 Alignment parameters.
 """

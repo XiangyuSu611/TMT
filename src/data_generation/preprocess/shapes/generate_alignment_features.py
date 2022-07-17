@@ -51,7 +51,7 @@ def main(directory):
     shapes = sorted(directory.iterdir())
     pbar = tqdm(shapes)
     for shape in pbar:
-        rend_dir = Path(shape, 'images/alignment/renderings')
+        rend_dir = Path(shape, 'images')
         rend_paths = sorted(rend_dir.iterdir())
         pbar.set_description(f'Computing features for shape {shape}')
         with ProcessPoolExecutor(max_workers=8) as executor:
@@ -61,7 +61,7 @@ def main(directory):
         parsed_filenames = [parse_rend_filename(f.name) for f in rend_paths]
         fovs = [float(d['fov']) for d in parsed_filenames]
         thetas = [float(d['theta']) for d in parsed_filenames]
-        phis = [float(d['phi']) for d in parsed_filenames]
+        phis = [float(d['phi'][:-6]) for d in parsed_filenames]
 
         data = {
             'fovs': np.array(fovs, dtype=np.float16),

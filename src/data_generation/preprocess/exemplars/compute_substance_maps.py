@@ -1,22 +1,18 @@
 """
 predict pixel-wised substance category.
 """
-
 import sys
 sys.path.append('/home/code/TMT/src/')
 import config
 import numpy as np
 import skimage
 import thirdparty.toolbox.toolbox.images as images
-
 from pathlib import Path
 from tqdm import tqdm
 from skimage.io import imread, imsave
 from thirdparty.kitnn.kitnn.models import minc
 
 IMAGE_PAD_SIZE = 25
-IMAGE_SHAPE = (500, 500)
-
 
 def main(directory):
     # load MINC.
@@ -52,6 +48,7 @@ def main(directory):
        
 
 def compute_substance_map(pbar, mincnet, image, fg_mask):
+    # predict substance map.
     processed_image = minc.preprocess_image(image)
     s = 1
     prob_maps, feat_dicts = minc.compute_probs_multiscale(

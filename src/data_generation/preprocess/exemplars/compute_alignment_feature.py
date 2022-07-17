@@ -3,7 +3,6 @@ compute  image HOG features.
 """
 import sys
 sys.path.append('/home/code/TMT/src/')
-
 import config
 import numpy as np
 import os
@@ -23,7 +22,6 @@ def compute_features(image, bin_size, im_shape):
     for c in range(3):
         image[:, :, c] -= image.mean()
         image[:, :, c] /= image.std()
-
     padded = np.dstack([np.pad(image[:, :, d], bin_size,
                                mode='constant', constant_values=image.mean())
                         for d in range(image.shape[-1])])
