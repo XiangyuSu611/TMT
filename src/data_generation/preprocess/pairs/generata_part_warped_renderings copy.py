@@ -1,9 +1,11 @@
 """
 Computes aligning features for all ShapeNet shapes.
 """
+import logging
 import os
-import sys
-sys.path.append('/home/code/TMT/src')
+import warnings
+
+import visdom
 from pydensecrf import densecrf
 import numpy as np
 
@@ -23,6 +25,17 @@ from src.terial.database import session_scope
 from src.terial.pairs import utils
 from thirdparty.toolbox.toolbox.images import visualize_map, resize
 
+# from thirdparty.vispy.vispy import app
+# app.use_app('glfw')
+
+
+vis = visdom.Visdom(env='generate-warped-rends')
+
+logger = logging.getLogger(__name__)
+logger.addHandler(logging.StreamHandler())
+logger.setLevel(logging.INFO)
+logging.getLogger('rendkit').setLevel(logging.WARNING)
+
 
 def parse_rend_filename(fname):
     fname, _ = os.path.splitext(fname)
@@ -38,6 +51,7 @@ def compute_features(path):
 
 def main():
     for i in range(0, len(id_list)):
+        warnings.simplefilter("ignore")
 
         filters = []
         if args.category:
@@ -124,22 +138,23 @@ def warp_renderings(pbar, pair: ExemplarShapePair):
     vis.image(shape_subst_vis.transpose((2, 0, 1)), win='shape-subst-map',
               opts={'title': 'shape-subst-map'})
 
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        pair.save_data(config.PAIR_PROXY_SUBST_MAP_NAME, proxy_subst_map)
+        pair.save_data(config.PAIR_PROXY_SUBST_VIS_NAME, proxy_subst_vis)
 
-    pair.save_data(config.PAIR_PROXY_SUBST_MAP_NAME, proxy_subst_map)
-    pair.save_data(config.PAIR_PROXY_SUBST_VIS_NAME, proxy_subst_vis)
+        pair.save_data(config.PAIR_SHAPE_SUBST_MAP_NAME, shape_subst_map)
+        pair.save_data(config.PAIR_SHAPE_SUBST_VIS_NAME, shape_subst_vis)
 
-    pair.save_data(config.PAIR_SHAPE_SUBST_MAP_NAME, shape_subst_map)
-    pair.save_data(config.PAIR_SHAPE_SUBST_VIS_NAME, shape_subst_vis)
+        pair.save_data(config.PAIR_SHAPE_WARPED_SEGMENT_MAP_NAME,
+                       (warped_seg_map + 1).astype(np.uint8))
+        pair.save_data(config.PAIR_SHAPE_WARPED_SEGMENT_VIS_NAME,
+                       warped_seg_vis)
+        pair.save_data(config.SHAPE_REND_SEGMENT_VIS_NAME, shape_seg_vis)
 
-    pair.save_data(config.PAIR_SHAPE_WARPED_SEGMENT_MAP_NAME,
-                    (warped_seg_map + 1).astype(np.uint8))
-    pair.save_data(config.PAIR_SHAPE_WARPED_SEGMENT_VIS_NAME,
-                    warped_seg_vis)
-    pair.save_data(config.SHAPE_REND_SEGMENT_VIS_NAME, shape_seg_vis)
-
-    pair.save_data(config.PAIR_SHAPE_CLEAN_SEGMENT_VIS_NAME, crf_seg_vis)
-    pair.save_data(config.PAIR_SHAPE_CLEAN_SEGMENT_MAP_NAME,
-                    (crf_seg_map + 1).astype(np.uint8))
+        pair.save_data(config.PAIR_SHAPE_CLEAN_SEGMENT_VIS_NAME, crf_seg_vis)
+        pair.save_data(config.PAIR_SHAPE_CLEAN_SEGMENT_MAP_NAME,
+                       (crf_seg_map + 1).astype(np.uint8))
 
     ov_fig_warped = (rgb2gray(image)[:, :, None].repeat(3, 2)
                      + visualize_map(warped_seg_map)) / 2.0
