@@ -5,6 +5,7 @@ Directory configuration.
 """
 LOCAL_ROOT = Path('/home/code/TMT')
 DATA_ROOT = Path(LOCAL_ROOT, 'data')
+BLENDER_JSON_PATH = Path(DATA_ROOT, 'training_data', 'json')
 THIRD_ROOT = Path(LOCAL_ROOT, 'src', 'thirdparty')
 MATERIAL_ROOT = Path(DATA_ROOT, 'materials')
 MATERIAL_DIR_POLIIGON = MATERIAL_ROOT / 'polligon_0328'
@@ -39,6 +40,19 @@ FLOW_DATA_NAME = f'exemplar_rend_flow_silhouette_{SHAPE_REND_SHAPE_STR}.npz'
 FLOW_VIS_DATA_NAME = f'exemplar_rend_flow_silhouette_{SHAPE_REND_SHAPE_STR}.png'
 FLOW_EXEMPLAR_SILHOUETTE_VIS = f'flow_exemplar_silhouette_{SHAPE_REND_SHAPE_STR}.vis.png'
 FLOW_SHAPE_SILHOUETTE_VIS = f'flow_shape_silhouette_{SHAPE_REND_SHAPE_STR}.vis.png'
+PAIR_SEGMENT_OVERLAY_NAME = f'shape_segments_overlay.v2.png'
+PAIR_PROXY_SUBST_MAP_NAME = f'pair_proxy_substances.map.png'
+PAIR_PROXY_SUBST_VIS_NAME = f'pair_proxy_substances.vis.png'
+PAIR_SHAPE_SUBST_MAP_NAME = f'pair_shape_substances.map.png'
+PAIR_SHAPE_SUBST_VIS_NAME = f'pair_shape_substances.vis.png'
+PAIR_FG_BBOX_NAME = f'shape_fg_bbox_{SHAPE_REND_SHAPE_STR}.png'
+PAIR_RAW_SEGMENT_MAP_NAME = f'shape_segment_map_raw_{SHAPE_REND_SHAPE_STR}.png'
+PAIR_SHAPE_WARPED_PHONG_NAME = f'shape_warped_phong_{SHAPE_REND_SHAPE_STR}_3.png'
+PAIR_SHAPE_WARPED_SEGMENT_VIS_NAME = f'shape_warped_segments_{SHAPE_REND_SHAPE_STR}.vis.v2.png'
+PAIR_SHAPE_WARPED_SEGMENT_MAP_NAME = f'shape_warped_segments_{SHAPE_REND_SHAPE_STR}.map.v2.png'
+PAIR_SHAPE_CLEAN_SEGMENT_VIS_NAME = f'shape_clean_segments_{SHAPE_REND_SHAPE_STR}.vis.v2.png'
+PAIR_SHAPE_CLEAN_SEGMENT_MAP_NAME = f'shape_clean_segments_{SHAPE_REND_SHAPE_STR}.map.v2.png'
+PAIR_SHAPE_CLEAN_SEGMENT_MAP_NAME_OLD = f'shape_clean_segments_{SHAPE_REND_SHAPE_STR}.map.v2.png'
 """
 Alignment parameters.
 """
@@ -48,3 +62,20 @@ ALIGN_IM_SHAPE = (100, 100)
 ALIGN_DIST_THRES = 10.0
 ALIGN_DIST_THRES_GEN = 100.0
 ALIGN_TOP_K = 7
+
+SUBSTANCES = [
+    # chair and bed
+    'fabric',
+    'leather',
+    'wood',
+    'metal',
+    'plastic',
+    'background'
+    # table
+    # 'fabric',
+    # 'stone',
+    # 'wood',
+    # 'metal',
+    # 'plastic',
+    # 'background',
+]

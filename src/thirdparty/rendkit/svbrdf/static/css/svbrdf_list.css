@@ -1,0 +1,14 @@
+.list-table-container {
+    padding: 10px;
+    text-align: center;
+    width: 100%;
+}
+
+.list-table {
+    display: inline;
+    text-align: left;
+}
+
+.list-table td {
+    vertical-align: middle;
+}

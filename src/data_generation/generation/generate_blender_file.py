@@ -20,6 +20,7 @@ parser.add_argument('--use-minc-substances', action='store_true')
 parser.add_argument('--frontal', action='store_true')
 parser.add_argument('--diagonal', action='store_true')
 parser.add_argument('--no-floor', action='store_true')
+parser.add_argument('--train-data', action='store_true')
 args = parser.parse_args()
 
 if args.animate:
@@ -42,12 +43,21 @@ def main():
         materials_by_index = json.load(f)
 
     app.init()
-    scene = blender.construct_realimage_scene_chair(
-        app, inference_dict, materials_by_index, scene_type=args.type,
-        rend_shape=_REND_SHAPE,
-        frontal_camera=args.frontal,
-        diagonal_camera=args.diagonal,
-        add_floor=not args.no_floor)
+    
+    if args.training_data:
+        scene = blender.construct_realimage_scene(
+            app, inference_dict, materials_by_index, scene_type=args.type,
+            rend_shape=_REND_SHAPE,
+            frontal_camera=args.frontal,
+            diagonal_camera=args.diagonal,
+            add_floor=not args.no_floor)
+    else:
+        scene = blender.construct_realimage_scene_chair(
+            app, inference_dict, materials_by_index, scene_type=args.type,
+            rend_shape=_REND_SHAPE,
+            frontal_camera=args.frontal,
+            diagonal_camera=args.diagonal,
+            add_floor=not args.no_floor)
     
     if args.animate:
         blender.animate_scene(scene)

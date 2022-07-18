@@ -1,20 +1,13 @@
-from collections import Counter
-
+import config
 import numpy as np
+from pathlib import Path
+from collections import Counter
 from scipy.misc import imresize
-
+from skimage.io import imsave, imread
+from config import SUBSTANCES
 from thirdparty.kitnn.kitnn.models import minc
-from src.terial import config
-from src.terial.config import SUBSTANCES
-from src.terial.models import ExemplarShapePair, ExemplarpartShapePair
 from thirdparty.toolbox.toolbox.images import resize, mask_bbox, bbox_shape, bbox_make_square
-
-
-def pair_uncropped_exemplar(pair: ExemplarShapePair):
-    fg_mask = pair.load_data(config.PAIR_FG_BBOX_NAME)
-    return compute_uncropped_exemplar(pair.exemplar.load_cropped_image(), fg_mask)
-
-
+from thirdparty.rendkit.meshkit import wavefront
 
 def compute_uncropped_exemplar(exemplar_im, fg_mask):
     fg_bbox = mask_bbox(fg_mask)
@@ -25,7 +18,6 @@ def compute_uncropped_exemplar(exemplar_im, fg_mask):
     out_image = np.full((*fg_mask.shape, 3), dtype=np.uint8, fill_value=255)
     out_image[fg_bbox[0]:fg_bbox[1], fg_bbox[2]:fg_bbox[3]] = in_image
     return out_image
-
 
 
 def compute_substance_ids_by_segment(subst_map, segment_map):
@@ -58,21 +50,22 @@ def compute_segment_substance_map(segment_map, seg_subst_ids):
     return seg_subst_map
 
 
-def compute_segment_substances(pair: ExemplarShapePair,
+def compute_segment_substances(pair,
                                return_ids=False,
                                segment_map=None,
                                substance_map=None):
-    # load segment_map.
+    # load segment map.
     if segment_map is None:
-        segment_map = pair.load_data(config.PAIR_SHAPE_CLEAN_SEGMENT_MAP_NAME) - 1
-    # 
+        segment_map_path = Path(config.PAIR_ROOT, str(pair["id"]), 'images', config.PAIR_SHAPE_CLEAN_SEGMENT_MAP_NAME)
+        segment_map = imread(segment_map_path) - 1
+    # load substance map.
     if substance_map is None:
-        substance_map = pair.exemplar.load_data(config.EXEMPLAR_SUBST_MAP_NAME)
+        substance_map_path = pair["exemplar"] + '/image' + config.EXEMPLAR_SUBST_MAP_NAME
+        substance_map = imread(substance_map_path)
         substance_map = resize(substance_map, segment_map.shape, order=0)
 
-    mesh, _ = pair.shape.load()
-    seg_substances = compute_substance_ids_by_segment(substance_map,
-                                                      segment_map)
+    mesh, _ = wavefront.read_obj_file(final_pair["shape"] + '/models/uvmapped_v2.obj')
+    seg_substances = compute_substance_ids_by_segment(substance_map, segment_map)
     if return_ids:
         seg_substances = {
             k: v for k, v in seg_substances.items()
@@ -85,21 +78,22 @@ def compute_segment_substances(pair: ExemplarShapePair,
     return seg_substances
 
 
-def compute_partnet_segment_substances(pair: ExemplarpartShapePair,
-                                        return_ids=False,
-                                        segment_map=None,
-                                        substance_map=None):
-    # load segment_map.
+def compute_partnet_segment_substances(pair,
+                                       return_ids=False,
+                                       segment_map=None,
+                                       substance_map=None):
+    # load segment map.
     if segment_map is None:
-        segment_map = pair.load_data(config.PAIR_SHAPE_CLEAN_SEGMENT_MAP_NAME) - 1
-    # 
+        segment_map_path = Path(config.PAIR_ROOT, str(pair["id"]), 'images', config.PAIR_SHAPE_CLEAN_SEGMENT_MAP_NAME)
+        segment_map = imread(segment_map_path) - 1
+    # load substance map.
     if substance_map is None:
-        substance_map = pair.exemplar.load_data(config.EXEMPLAR_SUBST_MAP_NAME)
+        substance_map_path = pair["exemplar"] + '/image/' + config.EXEMPLAR_SUBST_MAP_NAME
+        substance_map = imread(substance_map_path)
         substance_map = resize(substance_map, segment_map.shape, order=0)
 
-    mesh, _ = pair.shape.load()
-    seg_substances = compute_substance_ids_by_segment(substance_map,
-                                                      segment_map)
+    mesh = wavefront.read_obj_file(pair["shape"] + '/models/uvmapped_v2.obj')
+    seg_substances = compute_substance_ids_by_segment(substance_map, segment_map)
     if return_ids:
         seg_substances = {
             k: v for k, v in seg_substances.items()
@@ -119,7 +113,7 @@ def compute_partnet_segment_substances(pair: ExemplarpartShapePair,
     return seg_substances
 
 
-def compute_segment_substances_with_id(pair: ExemplarShapePair,
+def compute_segment_substances_with_id(pair,
                                return_ids=False,
                                segment_map=None,
                                substance_map=None):
@@ -146,7 +140,7 @@ def compute_segment_substances_with_id(pair: ExemplarShapePair,
         }
     return seg_substances, seg_substances_ids
 
-def compute_segment_substances_with_id_ori(pair: ExemplarShapePair,
+def compute_segment_substances_with_id_ori(pair,
                                return_ids=False,
                                segment_map=None,
                                substance_map=None):

@@ -1,0 +1,57 @@
+{
+  "pair_id": 2,
+  "shape_id": 1,
+  "exemplar_id": 2,
+  "camera": {
+    "fov": 51.466851437866794,
+    "azimuth": 2.2007614924082324,
+    "elevation": 1.5659463345227944,
+    "distance": 1.3140185113025178
+  },
+  "segment": {
+    "segment_ids": {
+      "material_14": 0,
+      "material_5": 1,
+      "material_29": 2,
+      "material_36": 3,
+      "material_37": 4
+    },
+    "substances": {
+      "material_5": "fabric",
+      "material_14": "null",
+      "material_29": "null",
+      "material_36": "null",
+      "material_37": "null"
+    }
+  },
+  "tar_segment": {
+    "segment_ids": {
+      "material_14": 0,
+      "material_5": 1,
+      "material_29": 2,
+      "material_36": 3,
+      "material_37": 4
+    },
+    "segment_group_head_ids": {
+      "material_5": "material_29",
+      "material_14": "material_29",
+      "material_29": "material_29",
+      "material_36": "material_36",
+      "material_37": "material_36"
+    },
+    "substances": {
+      "material_5": "fabric",
+      "material_14": "fabric",
+      "material_29": "fabric",
+      "material_36": "null",
+      "material_37": "null"
+    },
+    "material_ids": {
+      "material_5": 139,
+      "material_14": 139,
+      "material_29": 139,
+      "material_36": 580,
+      "material_37": 580
+    }
+  }
+}

@@ -12,9 +12,7 @@ import skimage
 import sys
 import thirdparty.toolbox.toolbox as toolbox
 import thirdparty.toolbox.toolbox.images
-import thirdparty.vispy.vispy as vispy
 import thirdparty.brender.brender as brender
-
 from PIL import Image
 from pathlib import Path
 from skimage.color import rgb2gray
@@ -25,7 +23,6 @@ from thirdparty.rendkit.rendkit import shortcuts
 from thirdparty.toolbox.toolbox import cameras
 from thirdparty.toolbox.toolbox.images import visualize_map
 
-vispy.use(app='glfw')
 
 _REND_SHAPE = [500,500]
 _TMP_MESH_PATH = '/home/code/TMT/data/temp/_terial_generate_data_temp_mesh.obj'
@@ -37,27 +34,18 @@ def bright_pixel_mask(image, percentile=80):
     mask = image < perc
     return mask
 
-def load_shape_from_id(shape_id, shape_root):
-    obj_path = Path(shape_root, str(shape_id), 'models', 'uvmapped_v2.obj')
-    mesh = wavefront.read_obj_file(obj_path)
-    mesh.resize(1)
-    return mesh
 
 def get_seg(camera_pose, shape_id, shape_root):
-    rk_mesh = load_shape_from_id(shape_id, shape_root)
-    rk_mesh.resize(1)
-    rk_camera = cameras.location_to_cam(50, camera_pose, max_len=250)
-    with open(_TMP_MESH_PATH,'w') as f:
-        wavefront.save_obj_file(f, rk_mesh)
-    seg_map = shortcuts.render_segments_partnet(rk_mesh, rk_camera)
-    seg_vis = visualize_map(seg_map)[:, :, :3]
-    save_seg_map = (seg_map + 1).astype(np.uint8)
-    save_seg_vis = toolbox.images.to_8bit(seg_vis)
-    return save_seg_map
+    os.system(f'blender -b -P ./src/material_transfer/pre_process/generate_seg_map.py -- \
+            {shape_root + shape_id}/models/uvmapped_v2.obj \
+            {str(camera_pose[0])} \
+            {str(camera_pose[1])} \
+            {str(camera_pose[2])}')
+
 
 def main():
     test_id = '1'
-    # basic settings.
+    # Basic settings.
     totalPair = 1  # total number of test pairs.
     shapesEachEx = 1  # shape numbers of each exemplar.
     realImageRoot = './material_transfer/exemplar/wild_photo/target/' 
@@ -81,8 +69,9 @@ def main():
         selShapeIDs = fixShapeIDS
         for shapeIdx, shapeID in enumerate(selShapeIDs):
             savePre = 'render_val_' + str(index * shapesEachEx + shapeIdx + 1).zfill(8)
-            segMap = get_seg(camEst, shapeID, shapeRoot)
-            cv2.imwrite(saveRoot + savePre + '.png', segMap)
+            # get segmentation
+            get_seg(camEst, shapeID, shapeRoot)
+            os.rename('/home/code/TMT/src/material_transfer/exemplar/validation/shape_rend_segments_500x500.map0001.png', saveRoot + savePre + '.png')
             shutil.copyfile(realImageRoot + selReal, saveRoot + savePre + '.jpg')
             
             saveOth = 'render_val_' + str(index * shapesEachEx + shapeIdx + 1 + len(selReals) * shapesEachEx).zfill(8)

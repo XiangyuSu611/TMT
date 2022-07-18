@@ -29,53 +29,49 @@ def bright_pixel_mask(image, percentile=80):
 
 
 def main():
-    shape_dir = config.SHAPE_ROOT
-    id_list = os.listdir(shape_dir)
+    print(f"Initializing MATLAB engine.")
+    engine = matlab.engine.start_matlab()
+    engine.addpath(str(siftflow_path))
+    engine.addpath(str(siftflow_path / 'mexDenseSIFT'))
+    engine.addpath(str(siftflow_path / 'mexDiscreteFlow'))
+    
+    with open(config.PAIRS_JSON_PATH, 'r') as f1:
+        pairs = json.load(f1)
+    pbar = tqdm(pairs)
+    
+    for pair in pbar:
+        pbar.set_description(f'Pair {pair["id"]}')
+        exemplar_im = transform.resize(
+            imread(pair['exemplar'] + '/cropped.jpg'), config.SHAPE_REND_SHAPE,
+            anti_aliasing=True, mode='reflect')
+        seg_vis = imread(Path(config.PAIR_ROOT, str(pair["id"]), 'image' ,config.SHAPE_REND_SEGMENT_VIS_NAME))
 
-    for i in range(0,len(id_list)):
-        print(f"Initializing MATLAB engine.")
-        engine = matlab.engine.start_matlab()
-        engine.addpath(str(siftflow_path))
-        engine.addpath(str(siftflow_path / 'mexDenseSIFT'))
-        engine.addpath(str(siftflow_path / 'mexDiscreteFlow'))
-        
-        with open(config.PAIRS_JSON_PATH, 'r') as f1:
-            pairs = json.load(f1)
-        pbar = tqdm(pairs)
-       
-        for pair in pbar:
-            pbar.set_description(f'Pair {pair["id"]}')
-            exemplar_im = transform.resize(
-                imread(pair['exemplar'] + '/cropped.jpg'), config.SHAPE_REND_SHAPE,
-                anti_aliasing=True, mode='reflect')
-            seg_vis = imread(Path(config.PAIR_ROOT, str(pair["id"]), 'image' ,config.SHAPE_REND_SEGMENT_VIS_NAME))
+        vx, vy = compute_silhouette_flow(engine, pair)
+        flow_vis = visualize_flow(vx, vy)
 
-            vx, vy = compute_silhouette_flow(engine, pair)
-            flow_vis = visualize_flow(vx, vy)
+        vis.image(flow_vis.transpose((2, 0, 1)),
+                win='sil-flow',
+                opts={'title': 'sil-flow'})
+        vis.image(
+            ((exemplar_im + apply_flow(seg_vis, vx, vy))/2).transpose((2, 0, 1)),
+            win='sil-flow-applied',
+            opts={'title': 'sil-flow-applied'})
 
-            vis.image(flow_vis.transpose((2, 0, 1)),
-                    win='sil-flow',
-                    opts={'title': 'sil-flow'})
-            vis.image(
-                ((exemplar_im + apply_flow(seg_vis, vx, vy))/2).transpose((2, 0, 1)),
-                win='sil-flow-applied',
-                opts={'title': 'sil-flow-applied'})
+        # vx, vy = compute_phong_flow(engine, exemplar_im, phong_im)
+        #
+        # flow_vis = visualize_flow(vx, vy)
+        # vis.image(flow_vis.transpose((2, 0, 1)),
+        #           win='phong-flow',
+        #           opts={'title': 'phong-flow'})
+        # vis.image(
+        #     ((exemplar_im + apply_flow(seg_vis, vx, vy))/2).transpose((2, 0, 1)),
+        #     win='phong-flow-applied',
+        #     opts={'title': 'phong-flow-applied'})
 
-            # vx, vy = compute_phong_flow(engine, exemplar_im, phong_im)
-            #
-            # flow_vis = visualize_flow(vx, vy)
-            # vis.image(flow_vis.transpose((2, 0, 1)),
-            #           win='phong-flow',
-            #           opts={'title': 'phong-flow'})
-            # vis.image(
-            #     ((exemplar_im + apply_flow(seg_vis, vx, vy))/2).transpose((2, 0, 1)),
-            #     win='phong-flow-applied',
-            #     opts={'title': 'phong-flow-applied'})
-
-            # save data.
-            imsave((Path(config.PAIR_ROOT, str(pair["id"]), 'image', config.FLOW_VIS_DATA_NAME)), (visualize_flow * 255.))
-            # save npz.
-            pair.save_data(config.FLOW_DATA_NAME, np.dstack((vx, vy)))
+        # save data.
+        imsave((Path(config.PAIR_ROOT, str(pair["id"]), 'image', config.FLOW_VIS_DATA_NAME)), (visualize_flow * 255.))
+        # save npz.
+        pair.save_data(config.FLOW_DATA_NAME, np.dstack((vx, vy)))
 
 
 def compute_silhouette_flow(engine, pair):

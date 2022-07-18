@@ -1,12 +1,12 @@
 """
 generate final blender according to json files.
 """
-import sys
-sys.path.append('./')
 import argparse
 import json
 import multiprocessing
 import os
+import sys
+sys.path.append('./')
 import subprocess
 from functools import partial
 from pathlib import Path
@@ -31,10 +31,11 @@ def worker(gen_file, renderings_dir):
     for scene_type in scene_types:
         out_path = ( renderings_dir / f'{inference_path.stem}.{scene_type}.blend')
         command = [
-            'python', '-m', 'finalResults.newdata_blender',
+            'python', '-m', '.data_generation.generation.generate_blender_file',
             str(inference_path),
             str(out_path),
             '--pack-assets',
+            '--training-data'
         ]
         if args.frontal:
             command.append('--frontal')
@@ -44,7 +45,7 @@ def worker(gen_file, renderings_dir):
             command.append('--no-floor')
         print(f' * Launching command {command}')
         # command = ['ls']
-        subprocess.call(command)
+        # subprocess.call(command)
     return gen_file
 
 
