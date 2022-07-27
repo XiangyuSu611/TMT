@@ -5,7 +5,7 @@ from collections import OrderedDict
 
 import numpy as np
 
-from  thirdparty.rendkit.meshkit import Mesh
+from  src.thirdparty.rendkit.meshkit import Mesh
 
 OBJ_COMMENT_MARKER = '#'
 OBJ_VERTEX_MARKER = 'v'

@@ -47,9 +47,13 @@
                 // "--nThreads=0",
                 // "--no_pairing_check",
 
-                "src/material_transfer/exemplar/final_prediction/render_val_00000001.json", 
-                "src/material_transfer/exemplar/blender/render_val_00000001.inferred.blend", 
-                "--pack-assets",
+                // "src/material_transfer/exemplar/final_prediction/render_val_00000001.json", 
+                // "src/material_transfer/exemplar/blender/render_val_00000001.inferred.blend", 
+                // "--pack-assets",
+
+                // "--save-meta"
+
+                // "--classification",
             ]
         }
     ]

@@ -8,7 +8,7 @@ sys.path.append('./src')
 sys.path.append('.')
 from torchvision import transforms, models
 
-from src.terial.config import SUBSTANCES
+from src.material_prediction.config import SUBSTANCES
 
 class FLModel(nn.Module):
 

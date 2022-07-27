@@ -9,48 +9,56 @@ from pathlib import Path
 import msgpack
 from PIL import Image
 from tqdm import tqdm
-import sqlalchemy as sa
 
-import sys
-sys.path.append('./')
-
-from src.terial import models
-from src.terial.database import session_scope
-from src.terial.models import SplitSet
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--snapshot-dir', dest='snapshot_dir', type=Path,
-                    default='./data/training_data/material_prediction/render_partNet/')
+                    default='./data/training_data/image_translation/')
+parser.add_argument('--lmdb-dir', dest='lmdb_dir', type=Path,
+                    default='./data/training_data/material_prediction/')
 parser.add_argument('--split-set', type=str, 
-                    default='training')
+                    default='training', choices=['training','validation'])
+parser.add_argument('--save-meta', action='store_true')
 args = parser.parse_args()
 SHAPE = (500, 500)
 
 def main():
     snapshot_dir = args.snapshot_dir
-    with session_scope() as sess:
-        enabled_materials = (sess.query(models.Material)
-                      .order_by(models.Material.substance,
-                                models.Material.id)
-                      .all())
+    lmdb_dir = args.lmdb_dir
+    # with session_scope() as sess:
+    #     enabled_materials = (sess.query(models.Material)
+    #                   .order_by(models.Material.substance,
+    #                             models.Material.id)
+    #                   .all())
+    #     material_by_id = {
+    #         m.id: m
+    #         for m in enabled_materials
+    #     }
+    with open("./data/materials/materials.json", "r") as f:
+        enabled_materials = json.load(f)
         material_by_id = {
-            m.id: m
+            m["id"]: m 
             for m in enabled_materials
         }
 
     print(f"Fetched {len(enabled_materials)} enabled materials.")
 
-    split_set = SplitSet[args.split_set.upper()]
-
     if input(f"This will create an LMDB database at {snapshot_dir!s} for the "
-             f"{split_set.name} set. Continue? (y/n) ") != 'y':
+             f"{args.split_set.upper()} set. Continue? (y/n) ") != 'y':
         return
 
     snapshot_dir.mkdir(exist_ok=True, parents=True)
 
     mat_id_to_label = {
-        material.id: i for i, material in enumerate(enabled_materials)
+        material["id"]: i for i, material in enumerate(enabled_materials)
     }
+
+    if args.save_meta:
+        print('enter save_meta.')
+        with (lmdb_dir / 'meta.json').open('w') as f:
+            json.dump({
+                'mat_id_to_label': mat_id_to_label,
+            }, f, indent=2)
 
     tqdm.write(f"Fetching renderings from snapshot_dir.")
     tar_render_path = []
@@ -64,7 +72,7 @@ def main():
         if '.json' in render_path:
             tar_render_path.append(str(snapshot_dir) + '/' + renders_dir + '/' + render_path[0:render_path.find('.')])
         
-    train_env = lmdb.open((str(snapshot_dir) + '/' + args.split_set + '_final_val'),
+    train_env = lmdb.open((str(lmdb_dir) + '/' + args.split_set),
                           map_size=30000*200000)
     
     with train_env.begin(write=True) as txn:
@@ -92,7 +100,7 @@ def main():
             }
 
             seg_substances = {
-                seg_id: material_by_id[mat_id].substance     
+                seg_id: material_by_id[mat_id]["substance"]     
                 for seg_id, mat_id in seg_material_ids.items()
             }
             

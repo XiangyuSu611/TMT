@@ -6,7 +6,9 @@ from scipy.ndimage.filters import gaussian_filter
 from skimage.color import rgb2lab
 import skimage.io
 
-from toolbox import caching
+import sys
+sys.path.append("./src/thirdparty/toolbox/toolbox/")
+import caching
 
 logger = logging.getLogger(__name__)
 

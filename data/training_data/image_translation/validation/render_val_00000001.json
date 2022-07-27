@@ -1,0 +1,76 @@
+{
+  "split_set": "train",
+  "pair_id": 120612,
+  "shape_id": 42404,
+  "exemplar_id": 17921,
+  "camera": {
+    "fov": 51.613429794699236,
+    "azimuth": 2.3401748771158157,
+    "elevation": 1.2570135420437565,
+    "distance": 1.3465593367287048
+  },
+  "envmap": {
+    "id": 1,
+    "name": "studio016",
+    "source": "deviantart",
+    "scale": 1.1406203278677207,
+    "rotation": [
+      0,
+      0,
+      5.552510129480816
+    ]
+  },
+  "segment": {
+    "segment_ids": {
+      "material_39": 0,
+      "material_41": 1,
+      "material_5": 2,
+      "material_14": 3,
+      "material_37": 4,
+      "material_40": 5
+    },
+    "substances": {
+      "material_39": "metal",
+      "material_41": "metal",
+      "material_5": "plastic",
+      "material_14": "plastic",
+      "material_37": "plastic",
+      "material_40": "metal"
+    }
+  },
+  "saturated_frac": 0.0,
+  "tar_segment": {
+    "segment_ids": {
+      "material_39": 0,
+      "material_41": 1,
+      "material_5": 2,
+      "material_14": 3,
+      "material_37": 4,
+      "material_40": 5
+    },
+    "segment_group_head_ids": {
+      "material_5": "material_14",
+      "material_14": "material_14",
+      "material_37": "material_39",
+      "material_39": "material_39",
+      "material_40": "material_39",
+      "material_41": "material_39"
+    },
+    "substances": {
+      "material_5": "plastic",
+      "material_14": "plastic",
+      "material_37": "plastic",
+      "material_39": "plastic",
+      "material_40": "plastic",
+      "material_41": "plastic"
+    },
+    "material_ids": {
+      "material_39": 384,
+      "material_41": 384,
+      "material_5": 430,
+      "material_14": 430,
+      "material_37": 384,
+      "material_40": 384
+    }
+  }
+}

@@ -26,12 +26,13 @@ def mean_labdistance(source_labs, target_labs):
 
 
 def main():
-    photo_path = './data/materials/material_harven_0610/'
-    preview_path = './data/materials/preview_all_0610/'
+    photo_path = './data/materials/material_harven_600/'
+    preview_path = './data/materials/preview_all_600/'
     # similarity_matrix saving path
-    save_path = './data/materials/material_harven_0610/similarity_matrix/'
+    save_path = './data/materials/material_harven_600/similarity_matrix/'
+    save_path2 = './data/training_data/material_prediction/'
     # the path to store the renderings of the topN similar materials retrieved from the similarity matrix
-    vis_path = './data/materials/material_harven_0610/visualization/'
+    vis_path = './data/materials/material_harven_600/visualization/'
     # the path to store the scene preview images of the topN similar materials retrieved from the similarity matrix
     vis_preview_path = '/mnt/d/xiangyu/code/photoshape/data/blobs/materials/material_harven_0610/visualization_previewall/'
    
@@ -93,7 +94,7 @@ def main():
     print('pre-compute: ' + str(precompute_end_time - precompute_start_time) + 's.')
 
     similarity_matrix = torch.zeros((photo_number, photo_number), dtype=torch.float32)
-    print('相似性矩阵的长度为：' + str(photo_number))
+    print('the len of similarity matrix：' + str(photo_number))
 
     for i, prefix_i in enumerate(pho_dict.keys()):
         start_time = time.time()
@@ -260,6 +261,8 @@ def main():
 
     # save as .csv file
     total_data.to_csv(save_path + total_simi_matrix_name)
+    total_data.to_csv(save_path2 + total_simi_matrix_name)
+
     fabric_data.to_csv(save_path + 'fabric_sqrt.csv')
     leather_data.to_csv(save_path + 'leather_sqrt.csv')
     metal_data.to_csv(save_path + 'metal_sqrt.csv')
@@ -287,9 +290,6 @@ def main():
 
     # total_data.columns = pho_dict.keys()
     # total_data.index = pho_dict.keys()
-
-    # total_data.columns = subst_id_dict['wood']
-    # total_data.index = subst_id_dict['wood']
     
     # find the top10 images with the smallest l2-lab distance of each material rendered image
     for ref_id in preview_dict.keys():
@@ -303,7 +303,6 @@ def main():
                             + '_id_' + str(sorted_id)  + '_dis_' + str(sorted_total_data[sorted_id][ref_id]) + '.png')
                 shutil.copy(preview_dict[sorted_id], vis_preview_path + '/ref_' + str(ref_id) + '_no_'+ str(i) 
                             + '_id_' + str(sorted_id)  + '_dis_' + str(sorted_total_data[sorted_id][ref_id]) + '.png')
-
 
 
 if __name__ == '__main__':

@@ -1,0 +1,76 @@
+{
+  "split_set": "train",
+  "pair_id": 115521,
+  "shape_id": 44252,
+  "exemplar_id": 17242,
+  "camera": {
+    "fov": 51.27197458425517,
+    "azimuth": 0.7566763650236226,
+    "elevation": 1.5270507228490358,
+    "distance": 1.3462037361390435
+  },
+  "envmap": {
+    "id": 15,
+    "name": "Studio_Softboxes_And_Lamp",
+    "source": "adobe-stock",
+    "scale": 1.112979785049609,
+    "rotation": [
+      0,
+      0,
+      2.4070749384372716
+    ]
+  },
+  "segment": {
+    "segment_ids": {
+      "material_6": 0,
+      "material_17": 1,
+      "material_15": 2,
+      "material_39": 3,
+      "material_7": 4,
+      "material_37": 5
+    },
+    "substances": {
+      "material_6": "plastic",
+      "material_17": "plastic",
+      "material_15": "plastic",
+      "material_39": "plastic",
+      "material_7": "plastic",
+      "material_37": "plastic"
+    }
+  },
+  "saturated_frac": 0.0,
+  "tar_segment": {
+    "segment_ids": {
+      "material_6": 0,
+      "material_17": 1,
+      "material_15": 2,
+      "material_39": 3,
+      "material_7": 4,
+      "material_37": 5
+    },
+    "segment_group_head_ids": {
+      "material_6": "material_6",
+      "material_7": "material_6",
+      "material_15": "material_6",
+      "material_17": "material_6",
+      "material_37": "material_6",
+      "material_39": "material_6"
+    },
+    "substances": {
+      "material_6": "plastic",
+      "material_7": "plastic",
+      "material_15": "plastic",
+      "material_17": "plastic",
+      "material_37": "plastic",
+      "material_39": "plastic"
+    },
+    "material_ids": {
+      "material_6": 411,
+      "material_17": 411,
+      "material_15": 411,
+      "material_39": 411,
+      "material_7": 411,
+      "material_37": 411
+    }
+  }
+}

@@ -81,3 +81,7 @@ Werkzeug==2.1.2
 wheel==0.37.1
 wrapt==1.12.1
 zipp==3.8.0
+jinja2
+lmdb
+ujson
+msgpack

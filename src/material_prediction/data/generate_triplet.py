@@ -57,9 +57,9 @@ def generate_triplet_for_each_subst(substance_id_list, id2matDis, mat_id_to_labe
 
 if __name__ == '__main__':
     # path that stores material renderings
-    photo_path = './newMaterial/material_preview/material_harven_600/'
+    photo_path = './data/material/material_preview/material_harven_600/'
     # path that stores similarity matrix
-    similarity_matrix_path = './data/training_data/material_prediction/total_similarity_matrix_sqrt.csv'
+    similarity_matrix_path = './data/materials/material_harven_600/similarity_matrix/total_similarity_matrix_sqrt.csv'
     # path that stores training data
     snapshot_dir = './data/training_data/material_prediction/'
     # filename of training triplet

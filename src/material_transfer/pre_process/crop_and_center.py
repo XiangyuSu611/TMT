@@ -1,46 +1,15 @@
 '''
 crop images get croped files, centering and resize.
 '''
-import numpy as np
-import os
 import sys
 sys.path.append('/home/code/TMT/src')
-
+import numpy as np
+import os
 from pathlib import Path
 from skimage.io import imread, imsave
 from skimage.color import rgb2gray, gray2rgb
 from skimage.transform import resize
 from thirdparty.toolbox.toolbox.masks import mask_to_bbox, crop_bbox
-
-def main(oriDir):
-    cropDir = oriDir.replace('removebg','cropped')
-    tarDir = oriDir.replace('removebg','target')
-    if not os.path.exists(cropDir): os.makedirs(cropDir)
-    if not os.path.exists(tarDir): os.makedirs(tarDir)
-
-    imgs = os.listdir(oriDir)
-    imgs.sort()
-    
-    for index, img in enumerate(imgs):
-        # center
-        oriImg = imread(oriDir + img)
-        cropImg = make_square_image(oriImg, max_size=1000)
-        cropImgFile = cropDir + img.replace('.','_cropped.')
-        imsave(cropImgFile, cropImg)
-        # padding
-        exemplar = imread(cropImgFile)
-        exemplar_resize = resize(exemplar, (500,500))
-        up = np.full((50,500,3), 1, dtype=np.uint8)
-        exemplar_resize = np.append(up, exemplar_resize, axis=0)
-        down = np.full((50,500,3), 1, dtype=np.uint8)
-        exemplar_resize = np.append(exemplar_resize, down, axis=0)
-        left = np.full((600,50,3), 1, dtype=np.uint8)
-        exemplar_resize = np.append(left, exemplar_resize, axis=1)
-        exemplar_resize = np.append(exemplar_resize, left, axis=1)
-        exemplar_resize = resize(exemplar_resize, (500,500))
-        exemplar_resize = exemplar_resize * 255
-        exemplar_resize = exemplar_resize.astype(np.uint8)
-        imsave(tarDir + 'render_train_'  + str(index + 1).zfill(8) + '.jpg', exemplar_resize)        
 
 
 def bright_pixel_mask(image, percentile=80):
@@ -81,6 +50,37 @@ def make_square_image(image, max_size):
                             mode='constant', cval=255.0, anti_aliasing=True) * 255
         output_im[padding:padding + new_height, :] = cropped_im[:, :, :3]
     return output_im
+
+
+def main(oriDir):
+    cropDir = oriDir.replace('removebg','cropped')
+    tarDir = oriDir.replace('removebg','target')
+    if not os.path.exists(cropDir): os.makedirs(cropDir)
+    if not os.path.exists(tarDir): os.makedirs(tarDir)
+
+    imgs = os.listdir(oriDir)
+    imgs.sort()
+    
+    for index, img in enumerate(imgs):
+        # center
+        oriImg = imread(oriDir + img)
+        cropImg = make_square_image(oriImg, max_size=1000)
+        cropImgFile = cropDir + img.replace('.','_cropped.')
+        imsave(cropImgFile, cropImg)
+        # padding
+        exemplar = imread(cropImgFile)
+        exemplar_resize = resize(exemplar, (500,500))
+        up = np.full((50,500,3), 1, dtype=np.uint8)
+        exemplar_resize = np.append(up, exemplar_resize, axis=0)
+        down = np.full((50,500,3), 1, dtype=np.uint8)
+        exemplar_resize = np.append(exemplar_resize, down, axis=0)
+        left = np.full((600,50,3), 1, dtype=np.uint8)
+        exemplar_resize = np.append(left, exemplar_resize, axis=1)
+        exemplar_resize = np.append(exemplar_resize, left, axis=1)
+        exemplar_resize = resize(exemplar_resize, (500,500))
+        exemplar_resize = exemplar_resize * 255
+        exemplar_resize = exemplar_resize.astype(np.uint8)
+        imsave(tarDir + 'render_val_'  + str(index + 1).zfill(8) + '.jpg', exemplar_resize)        
 
 
 if __name__ == '__main__':

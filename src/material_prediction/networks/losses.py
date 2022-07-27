@@ -12,8 +12,8 @@ import pandas as pd
 import torch
 import torch.nn as nn
 
-from terial.classifier.utils import compute_precision
-from terial.classifier.newNetwork import utils as simi_utils
+from src.material_prediction.utils import compute_precision
+from src.material_prediction.networks import utils as simi_utils
 
 
 class TripletLossHuman(nn.Module):
@@ -29,11 +29,11 @@ class TripletLossHuman(nn.Module):
             random.seed(seed)
 
         # user answers path
-        train_triplet_path = './newdata/render_partNetv2/triplet_label_train.json'
-        test_triplet_path = './newdata/render_partNetv2/triplet_label_test.json'
+        train_triplet_path = 'data/training_data/material_prediction/triplet_label_train.json'
+        test_triplet_path = 'data/training_data/material_prediction/triplet_label_test.json'
 
         # norm by row similarity matrix path
-        similarity_matrix_path = 'newdata/render_partNetv2/similarity_matrix_norm_row.csv'
+        similarity_matrix_path = 'data/training_data/material_prediction/similarity_matrix_norm_row.csv'
 
         # load norm by row similarity matrix.
         mat_dis = pd.read_csv(similarity_matrix_path, header=None)

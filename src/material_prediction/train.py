@@ -12,8 +12,8 @@ import time
 import shutil
 import random
 import sys
-sys.path.append('./src')
-sys.path.append('.')
+sys.path.append("./")
+sys.path.append("./src")
 
 import torch
 import json
@@ -31,11 +31,11 @@ from torch.utils.data import DataLoader
 from torchvision import transforms, models
 import torchvision.transforms.functional as transforms_F
 
-from terial.config import SUBSTANCES
-from terial.classifier import transforms, rendering_dataset
-from terial.classifier.newNetwork import utils as simi_utils
-from terial.classifier.newNetwork.losses_load_tripletCls import TripletLossHuman
-from terial.classifier.newNetwork.newNetworksCls import FLModel
+from src.material_prediction.config import SUBSTANCES
+from src.material_prediction.data import transforms, rendering_dataset
+from src.material_prediction.networks import utils as simi_utils
+from src.material_prediction.networks.losses import TripletLossHuman
+from src.material_prediction.networks.network import FLModel
 
 
 INPUT_SIZE = 224
@@ -44,15 +44,12 @@ SHAPE = (384, 384)
 parser = argparse.ArgumentParser(description='Material Similarity Training')
 parser.add_argument('--snapshot-dir',
                     metavar='DIR', help='path to dataset',
-                    default='newdata/render_partNetv2/')
-parser.add_argument('--test-dir',
-                    metavar='DIR', help='path to dataset',
-                    default='data/havran1_ennis_298x298_LDR')
+                    default='data/training_data/material_prediction/')
 parser.add_argument('--similarity-matrix-path',
                     metavar='DIR', help='path to similarity matrix',
-                    default='newdata/render_partNetv2/total_similarity_matrix_sqrt.csv')
+                    default='data/training_data/material_prediction/total_similarity_matrix_sqrt.csv')
 parser.add_argument('-j', '--workers',
-                    default=12, type=int, metavar='N',
+                    default=0, type=int, metavar='N',
                     help='number of data loading workers (default: 12)')
 parser.add_argument('--epochs',
                     default=40, type=int, metavar='N',
@@ -95,7 +92,7 @@ parser.add_argument('--margin',
                     default=0.3, type=float,
                     help='triplet loss margin')
 parser.add_argument('--checkpoint-folder',
-                    default='./checkpoints/test',
+                    default='src/material_prediction/checkpoint/',
                     type=str, help='folder to store the trained models')
 parser.add_argument('--model-name',
                     default='resnet_similarity', type=str,
@@ -107,8 +104,8 @@ parser.add_argument('--classification',
                     default=False, action='store_true',
                     help='choose whether to start classification learning')   
 parser.add_argument('--dis-loss',
-                    default=False, action='store_true',
-                    help='Whether to use material distance loss')                  
+                    default=True, action='store_true',
+                    help='Whether to use material similaritu distance loss')                  
 parser.add_argument('-e', '--evaluate',
                     dest='evaluate', action='store_true',
                     help='evaluate model on validation set')
@@ -203,8 +200,9 @@ def train_model(loader, epoch, similarity_matrix):
             pred_mat, pred_sub, embeddings = model(imgs)
             loss, loss_human, loss_perplexity, loss_material, loss_substance, loss_distance = \
                 criterion(pred_mat, pred_sub, embeddings, targets_mat, targets_sub)
-            # 下面这句是新加的
+
             losses.update(loss.item(), imgs.size(0))
+            
             if args.classification == True:
                 # not compute loss_human and loss_perplexity
                 losses_human.update(loss_human, imgs.size(0))
@@ -212,8 +210,7 @@ def train_model(loader, epoch, similarity_matrix):
                 losses_material.update(loss_material.item(), imgs.size(0))
                 losses_substance.update(loss_substance.item(), imgs.size(0))
                 if args.dis_loss == True:
-                    # losses_distance.update(loss_distance.item(), imgs.size(0))
-                    losses_distance.update(loss_distance, imgs.size(0))
+                    losses_distance.update(loss_distance.item(), imgs.size(0))
                 else:
                     losses_distance.update(loss_distance, imgs.size(0))
             else:
@@ -288,7 +285,7 @@ def evaluate_model(loader, epoch, similarity_matrix):
 
             if args.classification == True:
                 # not compute loss_human and loss_perplexity
-                losses_human.update(loss_human, imgs.size(0)) # 究竟是 imgs.size(0) 还是 triplet.size(0)
+                losses_human.update(loss_human, imgs.size(0))
                 losses_preplexity.update(loss_perplexity, imgs.size(0))
                 losses_material.update(loss_material.item(), imgs.size(0))
                 losses_substance.update(loss_substance.item(), imgs.size(0))
@@ -353,19 +350,15 @@ if __name__ == '__main__':
         # torch.backends.cudnn.benchmark = True
         # torch.backends.cudnn.enabled = True
 
-        # # this might affect performance but allows reproducibility
+        # this might affect performance but allows reproducibility
         torch.backends.cudnn.enabled = False
         torch.backends.cudnn.deterministic = True
 
     # define dataset
     # use photoshape dataloder.
-    # trf_train, trf_test = get_transforms()
-    # loader_train, loader_val = get_dataloaders(trf_train)
-    # mturk_images, _ = utils.load_imgs(args.test_dir, trf_test)
-    
     print(' * Loading datasets')
     snapshot_dir = Path(args.snapshot_dir)
-    train_path = Path(snapshot_dir, 'train')
+    train_path = Path(snapshot_dir, 'training')
     validation_path = Path(snapshot_dir, 'validation')
     meta_path = Path(snapshot_dir, 'meta.json')
     color_binner = None
@@ -399,24 +392,6 @@ if __name__ == '__main__':
             INPUT_SIZE, INPUT_SIZE),
         mask_transform=transforms.inference_mask_transform(
             INPUT_SIZE, INPUT_SIZE))
-
-    # train_dataset = finetune_path2_dataset.MaterialRendDataset(
-    #     train_path,
-    #     meta_dict,
-    #     shape=SHAPE,
-    #     lmdb_name=snapshot_dir.name,
-    #     image_transform = transforms.finetune_image_transform(INPUT_SIZE, pad=0),
-    #     mask_transform = transforms.train_mask_transform(INPUT_SIZE, pad=0),
-    #     )
-
-    # validation_dataset = finetune_path2_dataset.MaterialRendDataset(
-    #     validation_path,
-    #     meta_dict,
-    #     shape=SHAPE,
-    #     lmdb_name=snapshot_dir.name,
-    #     image_transform=transforms.inference_image_transform(224, 224),
-    #     mask_transform=transforms.inference_mask_transform(224, 224),
-    #     )
 
     loader_train = DataLoader(
         train_dataset,

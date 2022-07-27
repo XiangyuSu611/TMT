@@ -1,6 +1,8 @@
 """
 blender renderer
 """
+import sys
+#os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 import argparse
 import bpy
 import copy
@@ -8,8 +10,6 @@ import math
 import mathutils
 import numpy as np
 import os 
-import sys
-#os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 
 
 def point_at(obj, target, roll=0):
@@ -73,6 +73,9 @@ parser.add_argument('cam_z', type=str)
 argv = sys.argv[sys.argv.index("--") + 1:]
 args = parser.parse_args(argv)
 print('args.obj:' + args.obj)
+print('args.cam_x:' + args.cam_x)
+print('args.cam_y:' + args.cam_y)
+print('args.cam_z:' + args.cam_z)
 
 # set GPU render.
 bpy.context.scene.render.engine = 'CYCLES'
@@ -102,15 +105,24 @@ bpy.ops.object.delete()
 lig = bpy.data.objects['Light']
 lig.select_set(True)
 bpy.ops.object.delete()
-bpy.ops.import_scene.obj(filepath=args.obj)
+bpy.ops.import_scene.obj(filepath=args.obj, 
+                            use_edges=True,
+                            use_smooth_groups=True,
+                            use_split_objects=False,
+                            use_split_groups=False,
+                            use_groups_as_vgroups=False,
+                            use_image_search=True,
+                            split_mode="ON",
+                            axis_forward="-Z",
+                            axis_up="Y")
 
 # set nodes.
 bpy.context.scene.view_layers['View Layer'].use_pass_material_index = True
 mat_list = get_material_names()
 sorted(mat_list)
 for idx, mat in enumerate(mat_list):
-    # bpy.data.materials[mat].pass_index = int(mat[9:]) + 1
-    bpy.data.materials[mat].pass_index = idx + 1
+    bpy.data.materials[mat].pass_index = int(mat[9:]) + 1
+    # bpy.data.materials[mat].pass_index = idx + 1
 bpy.context.scene.use_nodes = True
 tree = bpy.context.scene.node_tree
 links = tree.links
@@ -164,10 +176,20 @@ for mat in mat_list:
     tar_color = (0,0,0)
     new_color_material(mat, [tar_color[0] / 255., tar_color[1] / 255., tar_color[2] / 255., 1.])
 
+model = bpy.context.scene.objects['uvmapped_v2']
+lowest_z = min([(model.matrix_world @ v.co).z for v in model.data.vertices])
+highest_z = max([(model.matrix_world @ v.co).z for v in model.data.vertices])
+lowest_y = min([(model.matrix_world @ v.co).y for v in model.data.vertices])
+highest_y = max([(model.matrix_world @ v.co).y for v in model.data.vertices])
+lowest_x = min([(model.matrix_world @ v.co).x for v in model.data.vertices])
+highest_x = max([(model.matrix_world @ v.co).x for v in model.data.vertices])
+look_at_pose = np.array([(highest_x + lowest_x) / 2, (highest_y + lowest_y) / 2, (highest_z + lowest_z) / 2])
+
+
 # set camera.
 cam = bpy.data.objects['Camera']
-cam.location = [float(cam_x), float(cam_z), float(cam_y)] * 0.75
-point_at(cam, (0., 0., 0.))
+cam.location = [float(args.cam_x) * 1.2 , float(args.cam_z) * 1.2, float(args.cam_y) * 1.2]
+point_at(cam, ((highest_x + lowest_x) / 2, (highest_y + lowest_y) / 2, (highest_z + lowest_z) / 2))
 # output_node_img.file_slots[0].path = f'shape_rend_phong_500x500'
 output_node_seg.file_slots[0].path = f'shape_rend_segments_500x500.map'
 bpy.ops.render.render(write_still=True)

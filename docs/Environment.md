@@ -5,6 +5,11 @@ We recommend using a docker container to run our code, but we still provide a wa
 First install [docker](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository) following the instructions linked. Once you have this installed, download and start our container using the following command:
 ```shell
 # release soon.
+# enter docker.
+sudo docker exec -it TMT_v2 bash
+# enter python enviornment.
+conda deactivate
+pyenv activate TMT
 ```
 
 ## Run TMT without docker

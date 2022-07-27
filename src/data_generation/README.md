@@ -3,7 +3,7 @@
 ## Datesets
 We use collections of **photographs**, **shapes** and **materials** for training our neural networks. We try to publish all the data needed to run our code, but due to copyright restrictions, some commercial data require users to download directly from source.
 ### Photographs
-We use photographs collected by [PhotoShape](https://github.com/keunhong/photoshape#exemplar-images), which have been cropped and centered. These codes can be found in `./preprocess/exemplars/`. It should be noticed that we use [MINC](http://opensurfaces.cs.cornell.edu/publications/minc/) to get pixel-wised substance prediction, pre-trained model can be downloaded from [here]().
+We use photographs collected by [PhotoShape](https://github.com/keunhong/photoshape#exemplar-images), which have been cropped and centered. These codes can be found in `./preprocess/exemplars/`. It should be noticed that we use [MINC](http://opensurfaces.cs.cornell.edu/publications/minc/) to get pixel-wised substance prediction, pre-trained model can be downloaded from [here](https://drive.google.com/file/d/1Z6CpBc0osNh8KEgrrzdK79bE146ed8Ic/view?usp=sharing).
 
 If you want to use our pre-processed photos for chairs, please download from [here](https://drive.google.com/file/d/1CHpavpGIZ8Uu3fF0gqyw7eC3WTU1Qwlp/view?usp=sharing), and decompress it to `../data/exemplars/`.
 
@@ -21,7 +21,7 @@ exemplars/1
 ### Shapes
 For 3D shapes, we use [PartNet](https://partnet.cs.stanford.edu/), which contains no texture but fine-gained semantic segmentation. For each model in PartNet, we merged the individual part segmentations together and recalculated the UVs using blender. These codes can be found in `./preprocess/shapes/`.
 
-Please download pre-processed shapes for chairs from [here](url-to-shape), and decompress it to `../data/shapes/`.
+Please download pre-processed shapes for chairs from [here](https://drive.google.com/file/d/1XWSkN2bw11mzsz8R4NjrdsQU2F2eTMFv/view?usp=sharing), and decompress it to `../data/shapes/`.
 
 Structure of shape files should look like this:
 ```Python
@@ -36,7 +36,7 @@ shapes/1
     └── align_hog_8.npz # pre-computed HOG feature.
 ```
 ### Materials
-We have collected 600 photorealistic materials from differernt sources, some of which are free and some are commercially available. Unfortunately, we only have permission to publish free data, please download these materials from [here](), and they should be placed in `../data/materials/`. In addition, `materials.json`  includes the source and name of the paid material, which can be downloaded by yourself.
+We have collected 600 photorealistic materials from differernt sources, some of which are free and some are commercially available. Unfortunately, we only have permission to publish free data, please download these materials from [here](https://drive.google.com/file/d/1n7VfAnEj6L1NdpODycSArivG1FVOARb3/view?usp=sharing), and they should be placed in `../data/materials/`. In addition, `materials.json`  includes the source and name of the paid material, which can be downloaded by yourself.
 
 If you want to collect your own material dataset, here are some useful photorealistic material dataset:
 + [Textures.com](https://www.textures.com/library)
