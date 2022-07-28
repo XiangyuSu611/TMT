@@ -4,14 +4,19 @@ We recommend using a docker container to run our code, but we still provide a wa
 ## Run TMT with docker
 First install [docker](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository) following the instructions linked. Once you have this installed, download and start our container using the following command:
 ```shell
-# release soon.
-# enter docker.
-sudo docker exec -it TMT_v2 bash
+# pull docker image.
+docker pull xiangyusu611/tmt:release
+# create a new container.
+docker run -it --gpus all --name TMT -p 1111:1111 xiangyusu611/tmt:release bash
+# start container.
+docker start TMT
+# enter container.
+sudo docker exec -it TMT bash
 # enter python enviornment.
 conda deactivate
 pyenv activate TMT
 ```
-
+Code has been placed in `/home/code/TMT/`.
 ## Run TMT without docker
 ### Python Environment
 We use pyenv to manage python environments.
