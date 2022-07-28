@@ -16,9 +16,9 @@ MATERIAL_DIR_CCOTEXTURE = MATERIAL_ROOT / 'cc0texture'
 MATERIAL_DIR_TEXTURE3D = MATERIAL_ROOT / '3Dtexture'
 MATERIAL_DIR_TEXTUREHARVEN = MATERIAL_ROOT / 'texture_harven'
 MATERIAL_DIR_SHARETEXTURE = MATERIAL_ROOT / 'shareTexture'
-
 SHAPE_ROOT = Path(DATA_ROOT, 'shapes')
 PAIR_ROOT = Path(DATA_ROOT, 'pairs')
+
 MINC_VGG16_WEIGHTS_PATH = Path('/home/code/TMT_release/weights/minc_vgg16.npy')
 RADMAP_PATH = Path(DATA_ROOT, 'envmaps2/rnl.cross.exr')
 PAIRS_JSON_PATH = Path(DATA_ROOT, 'pairs/pairs.json')
@@ -64,18 +64,10 @@ ALIGN_DIST_THRES_GEN = 100.0
 ALIGN_TOP_K = 7
 
 SUBSTANCES = [
-    # chair and bed
     'fabric',
     'leather',
     'wood',
     'metal',
     'plastic',
     'background'
-    # table
-    # 'fabric',
-    # 'stone',
-    # 'wood',
-    # 'metal',
-    # 'plastic',
-    # 'background',
 ]
